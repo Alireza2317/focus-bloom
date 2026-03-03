@@ -1,0 +1,14 @@
+[project]
+name = "focus-bloom"
+version = "0.1.0"
+description = "A gamified Pomodoro timer with a virtual character that blooms with focus sessions."
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "textual>=8.0.1",
+]
+
+[dependency-groups]
+dev = [
+    "mypy>=1.19.1",
+]
