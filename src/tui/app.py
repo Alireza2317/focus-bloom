@@ -1,6 +1,7 @@
 from textual.app import App, ComposeResult
 from textual.widgets import Footer, Header
 
+from src.tui.widgets.controls import TimerControls
 from src.tui.widgets.timer import Timer
 
 
@@ -11,6 +12,7 @@ class FocusApp(App):
 		"""Child widgets for the app."""
 		yield Header()
 		yield Timer()
+		yield TimerControls()
 		yield Footer()
 
 
