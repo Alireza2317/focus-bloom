@@ -1,8 +1,7 @@
 from textual.app import App, ComposeResult
 from textual.widgets import Footer, Header
 
-from src.tui.widgets.controls import TimerControls
-from src.tui.widgets.timer import Timer
+from src.tui.widgets.pomodoro import PomodoroTimer
 
 
 class FocusApp(App):
@@ -11,8 +10,7 @@ class FocusApp(App):
 	def compose(self) -> ComposeResult:
 		"""Child widgets for the app."""
 		yield Header()
-		yield Timer()
-		yield TimerControls()
+		yield PomodoroTimer()
 		yield Footer()
 
 
