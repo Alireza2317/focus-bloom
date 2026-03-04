@@ -1,6 +1,7 @@
 from typing import Any
 
 from textual.app import ComposeResult
+from textual.message import Message
 from textual.widgets import Static
 
 from src.tui.widgets.controls import TimerControls
@@ -9,6 +10,9 @@ from src.tui.widgets.display import TimerDisplay
 
 class PomodoroTimer(Static):
 	"""A self-contained Pomodoro timer widget."""
+
+	class SessionCompleted(Message):
+		"""Posted when a focus session successfully finishes."""
 
 	def __init__(self, *args: Any, **kwargs: Any) -> None:
 		super().__init__(*args, **kwargs)
@@ -34,3 +38,4 @@ class PomodoroTimer(Static):
 
 	def on_timer_display_completed(self, message: TimerDisplay.Completed) -> None:
 		self.app.notify("Session completed.", title="Success", severity="information")
+		self.post_message(self.SessionCompleted())

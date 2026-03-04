@@ -21,7 +21,7 @@ class TimerDisplay(Static):
 	def update_time(self) -> None:
 		"""Called every second to update the time."""
 		if self.time > 0:
-			self.time -= 10
+			self.time -= 30
 		else:
 			self.stop()
 			self.post_message(self.Completed())
