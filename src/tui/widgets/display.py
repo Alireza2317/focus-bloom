@@ -18,7 +18,7 @@ class TimerDisplay(Static):
 		"""Initialize the TimerDisplay."""
 		super().__init__(*args, **kwargs)
 		# Set the time here to read the config at instantiation time
-		self.time = config.TIMER_MINUTES * 60 # seconds
+		self.time = config.TIMER_MINUTES * 60  # seconds
 
 	def on_mount(self) -> None:
 		"""Event handler called when widget is added to the app."""
@@ -29,7 +29,7 @@ class TimerDisplay(Static):
 		if self.time > 0:
 			self.time -= config.TIMER_DEDUCTION
 		else:
-			self.stop()
+			self.pause()
 			self.post_message(self.Completed())
 			if config.AUTO_RESET:
 				self.reset()
@@ -46,7 +46,7 @@ class TimerDisplay(Static):
 
 		self.interval_timer.resume()
 
-	def stop(self) -> None:
+	def pause(self) -> None:
 		self.interval_timer.pause()
 
 	def reset(self) -> None:

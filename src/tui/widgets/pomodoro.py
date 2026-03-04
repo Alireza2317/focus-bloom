@@ -28,9 +28,9 @@ class PomodoroTimer(Static):
 		"""Handle start button click from the internal controls."""
 		self.timer_display.start()
 
-	def on_timer_controls_stopped(self, message: TimerControls.Stopped) -> None:
-		"""Handle stop button click from the internal controls."""
-		self.timer_display.stop()
+	def on_timer_controls_paused(self, message: TimerControls.Paused) -> None:
+		"""Handle pause button click from the internal controls."""
+		self.timer_display.pause()
 
 	def on_timer_controls_reset(self, message: TimerControls.Reset) -> None:
 		"""Handle reset button click from the internal controls."""
