@@ -1,6 +1,7 @@
 from typing import Any
 
 from textual.app import App, ComposeResult
+from textual.containers import Horizontal, Vertical
 from textual.widgets import Footer, Header
 
 from src.core.character import PlantCharacter
@@ -13,6 +14,8 @@ from src.tui.widgets.stats import CharacterStatsWidget
 class FocusApp(App):
 	"""A Textual app to manage focus."""
 
+	CSS_PATH = "styles.tcss"
+
 	def __init__(self, *args: Any, **kwargs: Any):
 		super().__init__(*args, **kwargs)
 		self.character = PlantCharacter(name="Plant 1")
@@ -20,9 +23,11 @@ class FocusApp(App):
 	def compose(self) -> ComposeResult:
 		"""Child widgets for the app."""
 		yield Header()
-		yield CharacterStatsWidget(character=self.character)
-		yield CharacterAnimation(character=self.character)
-		yield PomodoroTimer()
+		with Horizontal(id="main_container"):
+			with Vertical():
+				yield CharacterStatsWidget(character=self.character)
+				yield CharacterAnimation(character=self.character)
+			yield PomodoroTimer()
 		yield Footer()
 
 
