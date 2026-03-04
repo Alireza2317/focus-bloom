@@ -20,7 +20,7 @@ class TimerDisplay(Static):
 
 	def watch_time(self, time: int) -> None:
 		"""Called when the time attribute changes."""
-		minutes, seconds = divmod(int(time), 60)
+		minutes, seconds = divmod(time, 60)
 		self.update(f"{minutes:02d}:{seconds:02d}")
 
 	def start(self) -> None:
