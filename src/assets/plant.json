@@ -1,0 +1,24 @@
+{
+  "seed": [
+    "\n \n \n      .\n \n \n        ",
+    "\n \n \n     ...\n \n \n        "
+  ],
+  "sprout": [
+    "\n \n     \ud83c\udf31\n      |\n      |\n \n        ",
+    "\n \n    \ud83c\udf31\n     \\\n      |\n \n        ",
+    "\n \n     \ud83c\udf31\n      |\n      |\n \n        ",
+    "\n \n      \ud83c\udf31\n      /\n      |\n \n        "
+  ],
+  "bud": [
+    "\n      \ud83c\udf3f\n     \\|/\n      |\n      |\n \n        ",
+    "\n     \ud83c\udf3f\n     /|/\n      |\n      |\n \n        ",
+    "\n      \ud83c\udf3f\n     \\|/\n      |\n      |\n \n        ",
+    "\n       \ud83c\udf3f\n     \\|\\\n      |\n      |\n \n        "
+  ],
+  "flower": [
+    "\n      \ud83c\udf38\n     \\|/\n      |\n      |\n \n        ",
+    "\n     \ud83c\udf3a\n     /|/\n      |\n      |\n \n        ",
+    "\n      \ud83c\udf38\n     \\|/\n      |\n      |\n \n        ",
+    "\n       \ud83c\udf3a\n     \\|\\\n      |\n      |\n \n        "
+  ]
+}

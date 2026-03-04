@@ -65,32 +65,24 @@ class PlantCharacter(Character):
 
 	STAGE_NAMES = ["Seed", "Sprout", "Bud", "Flower"]
 
-	ANIMATION_STAGES = [
-		[
-			"""\n \n \n      .\n \n \n        """,
-			"""\n \n \n     ...\n \n \n        """,
-			"""\n \n \n      .\n \n \n        """,
-			"""\n \n \n     ...\n \n \n        """
-		],
-		[
-			"""\n \n     🌱\n      |\n      |\n \n        """,
-			"""\n \n    🌱\n     \\\n      |\n \n        """,
-			"""\n \n     🌱\n      |\n      |\n \n        """,
-			"""\n \n      🌱\n      /\n      |\n \n        """
-		],
-		[
-			"""\n      🌿\n     \\|/\n      |\n      |\n \n        """,
-			"""\n     🌿\n     /|/\n      |\n      |\n \n        """,
-			"""\n      🌿\n     \\|/\n      |\n      |\n \n        """,
-			"""\n       🌿\n     \\|\\\n      |\n      |\n \n        """
-		],
-		[
-			"""\n      🌸\n     \\|/\n      |\n      |\n \n        """,
-			"""\n     🌺\n     /|/\n      |\n      |\n \n        """,
-			"""\n      🌸\n     \\|/\n      |\n      |\n \n        """,
-			"""\n       🌺\n     \\|\\\n      |\n      |\n \n        """
-		]
-	]
+	def __init__(self, name: str):
+		super().__init__(name)
+		self._animations: dict[str, list[str]] = {}
+
+	def _load_animations(self) -> None:
+		if self._animations:
+			return
+
+		import json
+		from pathlib import Path
+		# Assuming src is the parent directory of this file's parent
+		src_directory: Path = Path(__file__).parent.parent
+		filepath: Path = src_directory / "assets" / "plant.json"
+
+		if filepath.exists():
+			self._animations = json.loads(filepath.read_text(encoding="utf-8"))
+		else:
+			self._animations = {}
 
 	@property
 	def stage_name(self) -> str:
@@ -103,6 +95,7 @@ class PlantCharacter(Character):
 
 	@property
 	def current_animation_frames(self) -> list[str]:
-		stage_idx = min(self.stage_index, len(self.ANIMATION_STAGES) - 1)
-		return self.ANIMATION_STAGES[stage_idx]
+		self._load_animations()
+		stage_name_lower: str = self.stage_name.lower()
+		return self._animations.get(stage_name_lower, ["Missing Art Asset!"])
 
