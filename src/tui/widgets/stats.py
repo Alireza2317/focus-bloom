@@ -23,7 +23,7 @@ class CharacterStatsWidget(Static):
 	def update_stats(self) -> None:
 		"""Format the character's stats into a string."""
 		self.stats_display = (
-			f"🌱 {self.character.name} | Stage: {self.character.stage} | "
+			f"{self.character.icon} {self.character.name} | Stage: {self.character.stage_name} | "
 			f"Level: {self.character.level} | "
 			f"XP: {self.character.xp}/{self.character.xp_for_next_level}"
 		)

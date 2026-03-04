@@ -1,7 +1,10 @@
-class Character:
-	"""Represents the user's virtual plant character."""
+from abc import ABC, abstractmethod
 
-	def __init__(self, name: str = "Focus Plant"):
+
+class Character(ABC):
+	"""Represents the user's virtual character base."""
+
+	def __init__(self, name: str):
 		self.name = name
 		self.xp = 0
 		self.level = 1
@@ -27,13 +30,40 @@ class Character:
 		return self.level * 100
 
 	@property
-	def stage(self) -> str:
-		"""Determines the current life stage based on level."""
-		if self.level < 5:
-			return "Seed"
-		elif self.level < 10:
-			return "Sprout"
-		elif self.level < 15:
-			return "Bud"
+	def stage_index(self) -> int:
+		"""Determines the current life stage index based on level."""
+		if self.level < 2:
+			return 0
+		elif self.level < 4:
+			return 1
+		elif self.level < 6:
+			return 2
 		else:
-			return "Flower"
+			return 3
+
+	@property
+	@abstractmethod
+	def stage_name(self) -> str:
+		"""Returns the name of the current stage."""
+		pass
+
+	@property
+	@abstractmethod
+	def icon(self) -> str:
+		"""Returns a string icon representing the character type."""
+		pass
+
+
+class PlantCharacter(Character):
+	"""A specific plant-based character implementation."""
+
+	STAGE_NAMES = ["Seed", "Sprout", "Bud", "Flower"]
+
+	@property
+	def stage_name(self) -> str:
+		stage_idx = min(self.stage_index, len(self.STAGE_NAMES) - 1)
+		return self.STAGE_NAMES[stage_idx]
+
+	@property
+	def icon(self) -> str:
+		return "🌱"
