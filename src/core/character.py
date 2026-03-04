@@ -53,11 +53,44 @@ class Character(ABC):
 		"""Returns a string icon representing the character type."""
 		pass
 
+	@property
+	@abstractmethod
+	def current_animation_frames(self) -> list[str]:
+		"""Returns a list of strings representing animation frames for the current stage."""
+		pass
+
 
 class PlantCharacter(Character):
 	"""A specific plant-based character implementation."""
 
 	STAGE_NAMES = ["Seed", "Sprout", "Bud", "Flower"]
+
+	ANIMATION_STAGES = [
+		[
+			"""\n \n \n      .\n \n \n        """,
+			"""\n \n \n     ...\n \n \n        """,
+			"""\n \n \n      .\n \n \n        """,
+			"""\n \n \n     ...\n \n \n        """
+		],
+		[
+			"""\n \n     🌱\n      |\n      |\n \n        """,
+			"""\n \n    🌱\n     \\\n      |\n \n        """,
+			"""\n \n     🌱\n      |\n      |\n \n        """,
+			"""\n \n      🌱\n      /\n      |\n \n        """
+		],
+		[
+			"""\n      🌿\n     \\|/\n      |\n      |\n \n        """,
+			"""\n     🌿\n     /|/\n      |\n      |\n \n        """,
+			"""\n      🌿\n     \\|/\n      |\n      |\n \n        """,
+			"""\n       🌿\n     \\|\\\n      |\n      |\n \n        """
+		],
+		[
+			"""\n      🌸\n     \\|/\n      |\n      |\n \n        """,
+			"""\n     🌺\n     /|/\n      |\n      |\n \n        """,
+			"""\n      🌸\n     \\|/\n      |\n      |\n \n        """,
+			"""\n       🌺\n     \\|\\\n      |\n      |\n \n        """
+		]
+	]
 
 	@property
 	def stage_name(self) -> str:
@@ -67,3 +100,9 @@ class PlantCharacter(Character):
 	@property
 	def icon(self) -> str:
 		return "🌱"
+
+	@property
+	def current_animation_frames(self) -> list[str]:
+		stage_idx = min(self.stage_index, len(self.ANIMATION_STAGES) - 1)
+		return self.ANIMATION_STAGES[stage_idx]
+

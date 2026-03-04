@@ -19,7 +19,7 @@ class _Config:
 		"""Sets the configuration for rapid testing and debugging."""
 		self.DEBUG_MODE = True
 		self.TIMER_MINUTES = 1
-		self.TIMER_DEDUCTION = 30
+		self.TIMER_DEDUCTION = 60
 		self.AUTO_RESET = True
 		self.XP_PER_SESSION = 100
 

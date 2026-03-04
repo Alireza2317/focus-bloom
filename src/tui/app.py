@@ -5,7 +5,7 @@ from textual.widgets import Footer, Header
 
 from src.core.character import PlantCharacter
 from src.core.config import config
-from src.tui.widgets.animation import PlantAnimation
+from src.tui.widgets.animation import CharacterAnimation
 from src.tui.widgets.pomodoro import PomodoroTimer
 from src.tui.widgets.stats import CharacterStatsWidget
 
@@ -21,7 +21,7 @@ class FocusApp(App):
 		"""Child widgets for the app."""
 		yield Header()
 		yield CharacterStatsWidget(character=self.character)
-		yield PlantAnimation(character=self.character)
+		yield CharacterAnimation(character=self.character)
 		yield PomodoroTimer()
 		yield Footer()
 
@@ -37,7 +37,7 @@ class FocusApp(App):
 		self.query_one(CharacterStatsWidget).update_stats()
 
 		# Update the animation UI
-		self.query_one(PlantAnimation).update_art()
+		self.query_one(CharacterAnimation).update_art()
 
 		if leveled_up:
 			self.notify(
@@ -45,3 +45,4 @@ class FocusApp(App):
 				title="Congratulations",
 				severity="information",
 			)
+
