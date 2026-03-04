@@ -32,6 +32,9 @@ class TimerDisplay(Static):
 		self.update(f"{minutes:02d}:{seconds:02d}")
 
 	def start(self) -> None:
+		if self.time <= 0:
+			self.reset()
+
 		self.interval_timer.resume()
 
 	def stop(self) -> None:
