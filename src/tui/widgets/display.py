@@ -1,8 +1,9 @@
+from textual.message import Message
 from textual.reactive import reactive
 from textual.timer import Timer
 from textual.widgets import Static
 
-TIMER_MINUTES: int = 25
+TIMER_MINUTES: int = 1
 
 
 class TimerDisplay(Static):
@@ -10,13 +11,20 @@ class TimerDisplay(Static):
 
 	time: reactive[int] = reactive(TIMER_MINUTES * 60)  # in seconds
 
+	class Completed(Message):
+		"""Posted when timer reaches 0."""
+
 	def on_mount(self) -> None:
 		"""Event handler called when widget is added to the app."""
 		self.interval_timer: Timer = self.set_interval(1, self.update_time, pause=True)
 
 	def update_time(self) -> None:
 		"""Called every second to update the time."""
-		self.time -= 1
+		if self.time > 0:
+			self.time -= 10
+		else:
+			self.stop()
+			self.post_message(self.Completed())
 
 	def watch_time(self, time: int) -> None:
 		"""Called when the time attribute changes."""

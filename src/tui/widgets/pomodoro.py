@@ -31,3 +31,6 @@ class PomodoroTimer(Static):
 	def on_timer_controls_reset(self, message: TimerControls.Reset) -> None:
 		"""Handle reset button click from the internal controls."""
 		self.timer_display.reset()
+
+	def on_timer_display_completed(self, message: TimerDisplay.Completed) -> None:
+		self.app.notify("Session completed.", title="Success", severity="information")
