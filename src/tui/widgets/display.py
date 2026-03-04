@@ -3,13 +3,13 @@ from textual.reactive import reactive
 from textual.timer import Timer
 from textual.widgets import Static
 
-TIMER_MINUTES: int = 1
+from src.core.config import Config
 
 
 class TimerDisplay(Static):
 	"""A widget to display the time."""
 
-	time: reactive[int] = reactive(TIMER_MINUTES * 60)  # in seconds
+	time: reactive[int] = reactive(Config.TIMER_MINUTES * 60)  # in seconds
 
 	class Completed(Message):
 		"""Posted when timer reaches 0."""
@@ -21,10 +21,13 @@ class TimerDisplay(Static):
 	def update_time(self) -> None:
 		"""Called every second to update the time."""
 		if self.time > 0:
-			self.time -= 30
+			self.time -= Config.TIMER_DEDUCTION
 		else:
 			self.stop()
 			self.post_message(self.Completed())
+			if Config.AUTO_RESET:
+				self.reset()
+				self.start()
 
 	def watch_time(self, time: int) -> None:
 		"""Called when the time attribute changes."""
@@ -41,4 +44,4 @@ class TimerDisplay(Static):
 		self.interval_timer.pause()
 
 	def reset(self) -> None:
-		self.time = TIMER_MINUTES * 60
+		self.time = Config.TIMER_MINUTES * 60
