@@ -1,13 +1,13 @@
 from textual.message import Message
 from textual.reactive import reactive
 from textual.timer import Timer
-from textual.widgets import Static
+from textual.widgets import Digits
 
 from src.core.config import config
 
 
-class TimerDisplay(Static):
-	"""A widget to display the time."""
+class TimerDisplay(Digits):
+	"""A widget to display the time using large digits."""
 
 	time: reactive[int] = reactive(0)
 
@@ -38,7 +38,7 @@ class TimerDisplay(Static):
 	def watch_time(self, time: int) -> None:
 		"""Called when the time attribute changes."""
 		minutes, seconds = divmod(time, 60)
-		self.update(f"{minutes:02d} : {seconds:02d}")
+		self.update(f"{minutes:02d}:{seconds:02d}")
 
 	def start(self) -> None:
 		if self.time <= 0:
