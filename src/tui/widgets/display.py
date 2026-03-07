@@ -17,12 +17,17 @@ class TimerDisplay(Digits):
 	def __init__(self, *args, **kwargs) -> None:
 		"""Initialize the TimerDisplay."""
 		super().__init__(*args, **kwargs)
-		# Set the time here to read the config at instantiation time
+		self._is_running: bool = False
 		self.time = config.TIMER_MINUTES * 60  # seconds
 
 	def on_mount(self) -> None:
 		"""Event handler called when widget is added to the app."""
 		self.interval_timer: Timer = self.set_interval(1, self.update_time, pause=True)
+
+	@property
+	def is_running(self) -> bool:
+		"""Returns True if the timer is currently running."""
+		return self._is_running
 
 	def update_time(self) -> None:
 		"""Called every second to update the time."""
@@ -45,9 +50,11 @@ class TimerDisplay(Digits):
 			self.reset()
 
 		self.interval_timer.resume()
+		self._is_running = True
 
 	def pause(self) -> None:
 		self.interval_timer.pause()
+		self._is_running = False
 
 	def reset(self) -> None:
 		self.time = config.TIMER_MINUTES * 60
