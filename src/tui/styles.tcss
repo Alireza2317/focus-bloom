@@ -1,65 +1,66 @@
 Screen {
-    layout: vertical;
+	layout: vertical;
 }
 
 CharacterStatsWidget {
-    content-align: center middle;
-    text-style: bold;
+	content-align: center middle;
+	text-style: bold;
 }
 
 #main_container {
-    height: 1fr;
-    align: center middle;
-    padding: 2;
+	height: 1fr;
+	align: center middle;
+	padding: 2;
 }
 
 CharacterAnimation {
-    width: 1fr;
-    content-align: center middle;
-    color: $accent;
-    border: round $primary;
+	width: 1fr;
+	content-align: center middle;
+	color: $accent;
+	border: round $primary;
 }
 
 Toast {
-    width: 35;
-    height: auto;
-    background: $panel;
-    color: $text;
-    border: round $primary;
-    margin-bottom: 1;
-    padding: 0;
+	width: 35;
+	height: auto;
+	background: $panel;
+	color: $text;
+	border: round $primary;
+	margin-bottom: 1;
+	padding: 0;
 }
 
 PomodoroTimer {
-    width: 50%;
-    height: auto;
-    border: round $primary;
-    align: center middle;
-    background: $panel;
-    margin: 1;
+	align: center middle;
+	layout: vertical;
+	width: 50%;
+	border: round $primary;
+	background: $panel;
+	margin: 1;
+}
+
+PomodoroTimer Vertical {
+	height: auto;
 }
 
 TimerDisplay {
-    content-align: center middle;
-    height: 5;
-    border: round $accent;
-    color: $success;
-    text-style: bold;
+	width: auto;
+	color: $success;
 }
 
 TimerControls {
-    align: center middle;
-    height: auto;
+	layout: horizontal;
+	align: center middle;
+	height: auto;
 }
 
 TimerControls Horizontal {
-    align: center middle;
-    width: auto;
-    height: auto;
+	width: auto;
+	height: auto;
 }
 
 Button {
-    min-width: 8;
-    margin: 1 2;
-    padding: 0 0;
+	min-width: 8;
+	margin: 1 2;
+	padding: 0 0;
 }

@@ -1,6 +1,7 @@
 from typing import Any
 
 from textual.app import ComposeResult
+from textual.containers import Center, Vertical
 from textual.message import Message
 from textual.widgets import Static
 
@@ -21,8 +22,10 @@ class PomodoroTimer(Static):
 
 	def compose(self) -> ComposeResult:
 		"""Child widgets for the component."""
-		yield self.timer_display
-		yield self.timer_controls
+		with Vertical():
+			with Center():
+				yield self.timer_display
+			yield self.timer_controls
 
 	def on_timer_controls_started(self, message: TimerControls.Started) -> None:
 		"""Handle start button click from the internal controls."""
