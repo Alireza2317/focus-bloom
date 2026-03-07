@@ -1,4 +1,3 @@
-from textual.containers import Horizontal
 from textual.message import Message
 from textual.widgets import Button, Static
 
@@ -26,7 +25,6 @@ class TimerControls(Static):
 
 	def compose(self):
 		"""Create child widgets for the component."""
-		with Horizontal():
-			yield Button("Start", id="timer_start", variant="success")
-			yield Button("Pause", id="timer_pause", variant="error")
-			yield Button("Reset", id="timer_reset")
+		yield Button("Start", id="timer_start", variant="success")
+		yield Button("Pause", id="timer_pause", variant="error")
+		yield Button("Reset", id="timer_reset")
