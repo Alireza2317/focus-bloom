@@ -40,5 +40,4 @@ class PomodoroTimer(Static):
 		self.timer_display.reset()
 
 	def on_timer_display_completed(self, message: TimerDisplay.Completed) -> None:
-		self.app.notify("Session completed.", title="Success", severity="information")
 		self.post_message(self.SessionCompleted())
