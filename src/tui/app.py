@@ -5,7 +5,7 @@ from textual.binding import BindingType
 from textual.containers import Horizontal, Vertical
 from textual.widgets import Button, Footer, Header
 
-from src.core.character import PlantCharacter
+from src.core.character import JSONCharacter
 from src.core.config import config
 from src.core.meter import FocusMeter
 from src.tui.widgets.animation import CharacterAnimation
@@ -31,7 +31,7 @@ class FocusApp(App):
 
 	def __init__(self, *args: Any, **kwargs: Any):
 		super().__init__(*args, **kwargs)
-		self.character = PlantCharacter(name="Plant 1")
+		self.character = JSONCharacter(config.CHARACTER_NAME, config.CHARACTER_FILENAME)
 		self.focus_meter = FocusMeter()
 
 	def on_mount(self) -> None:

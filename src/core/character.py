@@ -1,4 +1,13 @@
 from abc import ABC, abstractmethod
+from typing import TypedDict
+
+
+class CharacterData(TypedDict):
+	"""Type definition for character JSON data structure."""
+
+	icon: str
+	stages: list[str]
+	frames: list[list[str]]
 
 
 class Character(ABC):
@@ -8,6 +17,8 @@ class Character(ABC):
 		self.name = name
 		self.xp = 0
 		self.level = 1
+		# Animation frame list in the order of its stages
+		self._animations: list[list[str]] = []
 
 	def add_xp(self, amount: int) -> bool:
 		"""Adds XP to the character. Returns True if leveled up, False otherwise."""
@@ -30,16 +41,10 @@ class Character(ABC):
 		return self.level * 100
 
 	@property
+	@abstractmethod
 	def stage_index(self) -> int:
 		"""Determines the current life stage index based on level."""
-		if self.level < 2:
-			return 0
-		elif self.level < 4:
-			return 1
-		elif self.level < 6:
-			return 2
-		else:
-			return 3
+		pass
 
 	@property
 	@abstractmethod
@@ -56,33 +61,42 @@ class Character(ABC):
 	@property
 	@abstractmethod
 	def current_animation_frames(self) -> list[str]:
-		"""Returns a list of strings representing animation frames for the current stage."""
+		"""
+		Returns a list of strings representing animation frames for the current stage.
+		"""
 		pass
 
 
-class PlantCharacter(Character):
-	"""A specific plant-based character implementation."""
+class JSONCharacter(Character):
+	"""A base character that loads animations from a JSON file."""
 
-	STAGE_NAMES = ["Seed", "Sprout", "Bud", "Flower"]
+	JSON_FILENAME: str = ""
 
-	def __init__(self, name: str):
+	ICON: str = ""
+	STAGE_NAMES: list[str] = []
+
+	def __init__(self, name: str, filename: str):
 		super().__init__(name)
-		self._animations: dict[str, list[str]] = {}
+		self.JSON_FILENAME = filename
+		self._load_json_file()
 
-	def _load_animations(self) -> None:
-		if self._animations:
-			return
-
+	def _load_json_file(self) -> None:
 		import json
 		from pathlib import Path
+
 		# Assuming src is the parent directory of this file's parent
 		src_directory: Path = Path(__file__).parent.parent
-		filepath: Path = src_directory / "assets" / "plant.json"
+		filepath: Path = src_directory / "assets" / self.JSON_FILENAME
 
-		if filepath.exists():
-			self._animations = json.loads(filepath.read_text(encoding="utf-8"))
-		else:
-			self._animations = {}
+		content: CharacterData = json.loads(filepath.read_text())
+
+		self.ICON = content["icon"]
+		self.STAGE_NAMES = content["stages"]
+		self._animations = content["frames"]
+
+	@property
+	def stage_index(self) -> int:
+		return self.level - 1
 
 	@property
 	def stage_name(self) -> str:
@@ -91,11 +105,16 @@ class PlantCharacter(Character):
 
 	@property
 	def icon(self) -> str:
-		return "🌱"
+		return self.ICON
 
 	@property
 	def current_animation_frames(self) -> list[str]:
-		self._load_animations()
-		stage_name_lower: str = self.stage_name.lower()
-		return self._animations.get(stage_name_lower, ["Missing Art Asset!"])
+		if not self._animations:
+			self._load_json_file()
+
+		try:
+			return self._animations[self.stage_index]
+
+		except IndexError:
+			return ["Missing Art Asset!"]
 

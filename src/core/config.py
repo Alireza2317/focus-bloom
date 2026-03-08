@@ -6,6 +6,8 @@ class _Config:
 
 	def __init__(self):
 		self.set_production_mode()
+		self.CHARACTER_NAME = "plant"
+		self.CHARACTER_FILENAME = "plant.json"
 
 	def set_production_mode(self):
 		"""Sets the configuration for a standard Pomodoro session."""

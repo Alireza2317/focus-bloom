@@ -19,8 +19,8 @@ class CharacterAnimation(Static):
 	def on_mount(self) -> None:
 		"""Set up an interval to cycle through animation frames."""
 		self.update_art()
-		# Change frame every 0.5 seconds for a smooth animation
-		self.set_interval(0.5, self.next_frame)
+		# Change frame for a smooth animation
+		self.set_interval(0.3, self.next_frame)
 
 	def next_frame(self) -> None:
 		"""Advance to the next frame in the animation sequence."""
