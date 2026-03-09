@@ -6,7 +6,7 @@ class _Config:
 
 	def __init__(self):
 		self.set_production_mode()
-		self.CHARACTER_NAME = "plant"
+		self.CHARACTER_NAME = "Punch"
 		self.CHARACTER_FILENAME = "plant.json"
 
 	def set_production_mode(self):
@@ -15,7 +15,7 @@ class _Config:
 		self.TIMER_MINUTES = 25
 		self.TIMER_DEDUCTION = 1
 		self.AUTO_RESET = False
-		self.XP_PER_SESSION = 50
+		self.XP_PER_SESSION = 5
 
 	def set_debug_mode(self):
 		"""Sets the configuration for rapid testing and debugging."""
@@ -23,7 +23,7 @@ class _Config:
 		self.TIMER_MINUTES = 1
 		self.TIMER_DEDUCTION = 60
 		self.AUTO_RESET = True
-		self.XP_PER_SESSION = 100
+		self.XP_PER_SESSION = 10
 
 
 config = _Config()

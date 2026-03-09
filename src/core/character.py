@@ -37,8 +37,8 @@ class Character(ABC):
 	@property
 	def xp_for_next_level(self) -> int:
 		"""Calculates the XP required to reach the next level."""
-		# Simple scaling: 100 XP for lvl 2, 200 for lvl 3, etc.
-		return self.level * 100
+		# Simple scaling: 10 XP for lvl 2, 20 for lvl 3, etc.
+		return self.level * 10
 
 	@property
 	@abstractmethod
@@ -96,7 +96,16 @@ class JSONCharacter(Character):
 
 	@property
 	def stage_index(self) -> int:
-		return self.level - 1
+		"""Return the stage index, capped at the last available stage."""
+		level_cutoffs: list[int] = [2, 4, 6, 8]
+
+		index: int = 0
+		for cutoff in level_cutoffs:
+			if self.level < cutoff:
+				return min(len(self.STAGE_NAMES) - 1, index)
+			index += 1
+
+		return len(self.STAGE_NAMES) - 1
 
 	@property
 	def stage_name(self) -> str:
@@ -117,4 +126,3 @@ class JSONCharacter(Character):
 
 		except IndexError:
 			return ["Missing Art Asset!"]
-
