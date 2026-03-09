@@ -80,6 +80,10 @@ FocusMeterWidget Vertical {
 	color: $warning;
 }
 
+#fmeter_progress Bar {
+	width: 88%;
+}
+
 Button {
 	min-width: 9;
 	margin: 1 3;
