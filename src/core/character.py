@@ -97,7 +97,11 @@ class JSONCharacter(Character):
 	@property
 	def stage_index(self) -> int:
 		"""Return the stage index, capped at the last available stage."""
-		level_cutoffs: list[int] = [2, 4, 6, 8]
+		level_cutoffs: list[int] = [
+			cutoff
+			for cutoff in range(1, len(self.STAGE_NAMES) * 2 + 1)
+			if cutoff % 2 == 0
+		]
 
 		index: int = 0
 		for cutoff in level_cutoffs:
